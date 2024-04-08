@@ -25,3 +25,8 @@ export interface Movie {
   isBookmarked: boolean;
   isTrending: boolean;
 }
+
+export interface newUser {
+  email: string;
+  password: string;
+}
