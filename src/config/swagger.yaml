@@ -1,0 +1,108 @@
+openapi: 3.0.0
+info:
+  title: entertainment-web
+  description: API
+  version: 0.1.9
+
+servers:
+  - url: http://localhost:3000/api
+    description: production server
+  - url: http://localhost:3000/api
+    description: local server
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /register:
+    post:
+      tags:
+        - REGISTER
+      requestBody:
+        description: user registration request
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "201":
+          description: user register successfully
+  /login:
+    post:
+      tags:
+        - LOGIN
+      requestBody:
+        description: user login
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: user login successfully
+  /movies:
+    get:
+      summary: "Get all movies"
+      tags:
+        - "Movies"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Movie"
+        404:
+          description: "No movies found"
+
+definitions:
+  Movie:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+      thumbnail:
+        type: "object"
+        properties:
+          tranding:
+            type: "object"
+            properties:
+              small:
+                type: "string"
+              large:
+                type: "string"
+          regular:
+            type: "object"
+            properties:
+              small:
+                type: "string"
+              medium:
+                type: "string"
+              large:
+                type: "string"
+      year:
+        type: "integer"
+      category:
+        type: "string"
+      rating:
+        type: "string"
+      isBookmarked:
+        type: "boolean"
+      isTrending:
+        type: "boolean"
