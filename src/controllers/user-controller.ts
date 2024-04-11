@@ -43,7 +43,7 @@ export const login = async (req: Request, res: Response) => {
       }
     );
     if (!user) {
-      return res.status(404).json();
+      return res.status(404).json({ emailError: "incorrect email" });
     }
     const result = await bcrypt.compare(password, user.password);
     if (result) {
@@ -51,9 +51,12 @@ export const login = async (req: Request, res: Response) => {
         email: user.email,
         id: user.id,
       };
-
-      const token = jwt.sign(signData, process.env.JWT_SECRET!);
+      const token = jwt.sign(signData, process.env.JWT_SECRET!, {
+        expiresIn: "1d",
+      });
       return res.status(201).json({ ...signData, token });
+    } else if (!result) {
+      return res.status(401).json({ passwordError: "incorrect password" });
     }
     return res.status(201).json(user);
   } catch (error) {
