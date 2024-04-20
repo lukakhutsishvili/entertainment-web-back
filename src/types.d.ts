@@ -30,3 +30,8 @@ export interface newUser {
   email: string;
   password: string;
 }
+
+export interface bookmarkedMovies {
+  id: string;
+  movies: string[];
+}

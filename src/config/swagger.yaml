@@ -34,7 +34,8 @@ paths:
                   type: string
       responses:
         "201":
-          description: user register successfully
+          description: user registered successfully
+
   /login:
     post:
       tags:
@@ -53,7 +54,28 @@ paths:
                   type: string
       responses:
         "200":
-          description: user login successfully
+          description: user logged in successfully
+
+  /sendBookmarkedMovies:
+    post:
+      summary: Create a new bookmarked movies entry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ID of the bookmarked movies entry
+                name:
+                  type: string
+                  description: List of movie IDs
+      responses:
+        '200':
+          description: OK
+
   /movies:
     get:
       summary: "Get all movies"
@@ -64,10 +86,12 @@ paths:
       responses:
         200:
           description: "Successful operation"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Movie"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Movie"
         404:
           description: "No movies found"
 
@@ -80,7 +104,7 @@ definitions:
       thumbnail:
         type: "object"
         properties:
-          tranding:
+          trending:
             type: "object"
             properties:
               small:
