@@ -13,6 +13,11 @@ const userSchema = new Schema<userType>({
     type: String,
     required: true,
   },
+  bookMarkedMovies: {
+    type: [String],
+    default: [],
+    required: false,
+  },
   id: {
     type: String,
     default: uuid,

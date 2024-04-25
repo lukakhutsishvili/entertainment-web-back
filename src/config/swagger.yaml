@@ -6,58 +6,72 @@ info:
 
 servers:
   - url: http://localhost:3000/api
-    description: production server
+    description: Production server
   - url: http://localhost:3000/api
-    description: local server
+    description: Local server
+
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+
 paths:
   /register:
     post:
       tags:
         - REGISTER
+      summary: Register a new user
       requestBody:
-        description: user registration request
+        description: User registration request
         required: true
         content:
           application/json:
             schema:
-              type: "object"
+              type: object
               properties:
                 email:
                   type: string
                 password:
                   type: string
+                bookMarkedMovies:
+                  type: array
+                  items:
+                    type: string
       responses:
         "201":
-          description: user registered successfully
+          description: User registered successfully
 
   /login:
     post:
       tags:
         - LOGIN
+      summary: Log in as an existing user
       requestBody:
-        description: user login
+        description: User login
         required: true
         content:
           application/json:
             schema:
-              type: "object"
+              type: object
               properties:
                 email:
                   type: string
                 password:
                   type: string
+                bookMarkedMovies:
+                  type: array
+                  items:
+                    type: string
       responses:
         "200":
-          description: user logged in successfully
+          description: User logged in successfully
 
   /sendBookmarkedMovies:
     post:
+      tags:
+        - Bookmarked Movies
       summary: Create a new bookmarked movies entry
       requestBody:
         required: true
@@ -68,65 +82,65 @@ paths:
               properties:
                 id:
                   type: string
-                  description: ID of the bookmarked movies entry
-                name:
+                  description: ID of the user
+                movies:
                   type: string
-                  description: List of movie IDs
+                  description: ID of the movie
       responses:
-        '200':
+        "200":
           description: OK
 
   /movies:
     get:
-      summary: "Get all movies"
+      summary: Get all movies
       tags:
-        - "Movies"
+        - Movies
       produces:
-        - "application/json"
+        - application/json
       responses:
-        200:
-          description: "Successful operation"
+        "200":
+          description: Successful operation
           content:
             application/json:
               schema:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/definitions/Movie"
-        404:
-          description: "No movies found"
+        "404":
+          description: No movies found
 
 definitions:
   Movie:
-    type: "object"
+    type: object
     properties:
       title:
-        type: "string"
+        type: string
       thumbnail:
-        type: "object"
+        type: object
         properties:
           trending:
-            type: "object"
+            type: object
             properties:
               small:
-                type: "string"
+                type: string
               large:
-                type: "string"
+                type: string
           regular:
-            type: "object"
+            type: object
             properties:
               small:
-                type: "string"
+                type: string
               medium:
-                type: "string"
+                type: string
               large:
-                type: "string"
+                type: string
       year:
-        type: "integer"
+        type: integer
       category:
-        type: "string"
+        type: string
       rating:
-        type: "string"
+        type: string
       isBookmarked:
-        type: "boolean"
+        type: boolean
       isTrending:
-        type: "boolean"
+        type: boolean

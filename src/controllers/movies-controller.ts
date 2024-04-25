@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Movies from "../models/movies.js";
-import BookedMovies from "../models/bookmarked.js";
+import User from "../models/user-model.js";
 
 export const getAllMovies = async (_: Request, res: Response) => {
   try {
@@ -12,24 +12,21 @@ export const getAllMovies = async (_: Request, res: Response) => {
 };
 
 export const sendBookmarkedMovies = async (req: Request, res: Response) => {
-  const { id, name } = req.body;
+  const { id, movies } = req.body;
   try {
-    let user = await BookedMovies.findOne({ id });
+    let user = await User.findOne({ id });
     if (user) {
-      const index = user.movies.indexOf(name);
+      const index = user.bookMarkedMovies.indexOf(movies);
       if (index !== -1) {
-        user.movies.splice(index, 1);
+        user.bookMarkedMovies.splice(index, 1);
       } else {
-        user.movies.push(name);
+        user.bookMarkedMovies.push(movies);
       }
       await user.save();
-    } else {
-      user = await BookedMovies.create({ id, movies: [name] });
     }
-
     return res.status(200).json(user);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error });
   }
 };

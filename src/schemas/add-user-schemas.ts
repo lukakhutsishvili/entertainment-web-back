@@ -16,6 +16,7 @@ const addUserSchema = async (data: newUser) => {
   return Joi.object<newUser>({
     email: Joi.string().email().custom(ifUserExist(user)).required(),
     password: Joi.string().required().min(3).max(14),
+    bookMarkedMovies: Joi.array(),
   });
 };
 

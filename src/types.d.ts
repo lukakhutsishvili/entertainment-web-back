@@ -1,6 +1,7 @@
 export interface userType {
   email: string;
   password: string;
+  bookMarkedMovies: string[];
   id: string;
 }
 
@@ -29,9 +30,5 @@ export interface Movie {
 export interface newUser {
   email: string;
   password: string;
-}
-
-export interface bookmarkedMovies {
-  id: string;
-  movies: string[];
+  bookMarkedMovies: string[];
 }

@@ -16,7 +16,7 @@ export const createUser = async (req: Request, res: Response) => {
       return res.status(201).json(error.details);
     }
 
-    const { email, password } = value;
+    const { email, password, bookMarkedMovies } = value;
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -24,6 +24,7 @@ export const createUser = async (req: Request, res: Response) => {
     const newUser = new User({
       email,
       password: hashedPassword,
+      bookMarkedMovies,
     });
     newUser.save();
     return res.status(201).json(newUser);
@@ -50,6 +51,7 @@ export const login = async (req: Request, res: Response) => {
       const signData = {
         email: user.email,
         id: user.id,
+        bookMarkedMovies: user.bookMarkedMovies,
       };
       const token = jwt.sign(signData, process.env.JWT_SECRET!, {
         expiresIn: "1d",
