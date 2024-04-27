@@ -90,6 +90,34 @@ paths:
         "200":
           description: OK
 
+  /bookMarkedMovies/{id}:
+    get:
+      summary: "Get Bookmarked Movies"
+      description: "Retrieves bookmarked movies for a user by their ID."
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: "User ID"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        '404':
+          description: "User not found"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
   /movies:
     get:
       summary: Get all movies
@@ -144,3 +172,5 @@ definitions:
         type: boolean
       isTrending:
         type: boolean
+
+

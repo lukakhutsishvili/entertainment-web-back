@@ -65,3 +65,15 @@ export const login = async (req: Request, res: Response) => {
     return res.status(401).json(error);
   }
 };
+
+export const getBookMarkedMovies = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findOne({ id });
+    if (user) {
+      return res.status(200).json(user.bookMarkedMovies);
+    }
+  } catch (error) {
+    return res.status(404).json({ message: "user not found" });
+  }
+};
