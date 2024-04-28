@@ -90,7 +90,7 @@ paths:
         "200":
           description: OK
 
-  /getBookMarkedMovies/{id}:
+  /bookMarkedMovies/{id}:
     get:
       summary: "Endpoint to retrieve bookmarked movies for a user"
       produces:
