@@ -92,32 +92,43 @@ paths:
 
   /bookMarkedMovies/{id}:
     get:
-      summary: "Endpoint to retrieve bookmarked movies for a user"
-      produces:
-        - "application/json"
+      summary: Get Bookmarked Movies
+      description: Retrieves bookmarked movies for a user by their ID.
       parameters:
-        - name: "id"
-          in: "path"
-          description: "ID of the user"
+        - in: path
+          name: id
           required: true
-          type: "string"
-          example: "12345"
+          description: User ID
+          schema:
+            type: string
       responses:
-        '200':
-          description: "Success"
-          schema:
-            type: "array"
-            items:
-              type: "string"
-            example: ["123", "456"]
-        '404':
-          description: "User not found"
-          schema:
-            type: "object"
-            properties:
-              message:
-                type: "string"
-                description: "Error message"
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  description: Movie title
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
 
   /movies:
     get:
@@ -173,5 +184,3 @@ definitions:
         type: boolean
       isTrending:
         type: boolean
-
-
