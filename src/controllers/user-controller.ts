@@ -27,7 +27,11 @@ export const createUser = async (req: Request, res: Response) => {
       password: hashedPassword,
       bookMarkedMovies,
     });
-    await sendEmail(email, email, "http://localhost:5173/verified");
+    await sendEmail(
+      email,
+      email,
+      "https://entertainment-web-front.vercel.app/verified"
+    );
     newUser.save();
     return res.status(201).json(newUser);
   } catch (error) {
