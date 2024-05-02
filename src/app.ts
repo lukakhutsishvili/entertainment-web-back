@@ -9,6 +9,8 @@ import swaggerMiddleware from "./middlewares/swagger-middleware.js";
 dotenv.config();
 connect();
 
+
+
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());

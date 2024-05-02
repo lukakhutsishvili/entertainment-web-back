@@ -3,6 +3,7 @@ import User from "../models/user-model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import addUserSchema from "../schemas/add-user-schemas.js";
+import sendEmail from "../mail/edge.js";
 
 export const createUser = async (req: Request, res: Response) => {
   const { body } = req;
@@ -26,6 +27,7 @@ export const createUser = async (req: Request, res: Response) => {
       password: hashedPassword,
       bookMarkedMovies,
     });
+    await sendEmail(email, email, "http://localhost:5173/verified");
     newUser.save();
     return res.status(201).json(newUser);
   } catch (error) {
