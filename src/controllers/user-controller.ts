@@ -14,7 +14,7 @@ export const createUser = async (req: Request, res: Response) => {
     const { value, error } = validator.validate(body);
 
     if (error) {
-      return res.status(201).json(error.details);
+      return res.status(400).json(error.details);
     }
 
     const { email, password, bookMarkedMovies } = value;
