@@ -9,11 +9,18 @@ import swaggerMiddleware from "./middlewares/swagger-middleware.js";
 dotenv.config();
 connect();
 
-
-
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://entertainment-web-front.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 app.use("/api", userRouter);
 app.use("/", ...swaggerMiddleware);
