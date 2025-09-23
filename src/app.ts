@@ -18,7 +18,7 @@ app.use(
       "https://entertainment-web-front.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    credentials: false,
   })
 );
 
